@@ -3,7 +3,7 @@ services:
   web:
     image: node:latest
     ports:
-      - '3000:3000'
+      - '5000:5000'
     depends_on:
       - mariadb
     volumes:
@@ -15,10 +15,8 @@ services:
     image: mariadb:latest
     ports:
       - '3306:3306'
-    volumes:
-      - ./data:/var/lib/mysql
     environment:
-      MYSQL_ROOT_PASSWORD: secretsecret
+      MYSQL_ROOT_PASSWORD: supersecret
       MYSQL_DATABASE: twitter
       MYSQL_USER: twitter
-      MYSQL_PASSWORD: twitter
+      MYSQL_PASSWORD: twitsecret
