@@ -1,11 +1,13 @@
-version: '3.3'
+version: '2.1'
 services:
   web:
     image: node:latest
     ports:
       - '5000:5000'
     depends_on:
-      - mariadb
+      mariadb:
+        condition: service_healthy
+
     volumes:
       - ./:/app
     working_dir: /app
@@ -15,6 +17,11 @@ services:
     image: mariadb:latest
     ports:
       - '3306:3306'
+    healthcheck:
+      test: mysqladmin -utwitter -ptwitsecret ping
+      interval: 2s
+      timeout: 5s
+      retries: 30
     environment:
       MYSQL_ROOT_PASSWORD: supersecret
       MYSQL_DATABASE: twitter
